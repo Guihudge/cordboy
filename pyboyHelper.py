@@ -87,7 +87,7 @@ def savestate(pyboy:PyBoy, savestatePath:str = SAVESTATE_PATH):
         pyboy.save_state(stateFile)
 
 def startEmulator(rom_path: str, state_path: str | None = None) -> PyBoy:
-    pyboy = PyBoy(ROM_PATH, sound_emulated=False)
+    pyboy = PyBoy(ROM_PATH, sound_emulated=False, window="null")
 
     if state_path is not None:
         with open(SAVESTATE_PATH, "rb") as state:
