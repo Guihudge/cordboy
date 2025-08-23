@@ -61,7 +61,9 @@ async def on_reaction_add(reaction: Reaction, user: User) -> None:
         savestate(pyboy)
         print(f"video id: {id}")
 
-    await reaction.message.edit(content=f"{BASE_URL}/out_{id:06d}.webp")
+    frame_url = f"{BASE_URL}/out_{id:06d}.webp"
+    await reaction.message.edit(content=f"{frame_url}")
+    
     # Réinitialiser les réactions
     try:
         await reaction.message.remove_reaction(reaction.emoji, user)

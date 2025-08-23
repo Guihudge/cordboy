@@ -3,7 +3,7 @@ import os
 from PIL import Image
 import time
 
-from config import ROM_PATH, SAVESTATE_PATH, COUNTER_PATH
+from config import ROM_PATH, SAVESTATE_PATH, COUNTER_PATH, FRAME_RESOLUTION
 
 def countfile(path:str):
     val = -1
@@ -24,7 +24,7 @@ def gen_video(pyboy:PyBoy, duration:int, output:os.PathLike|str, fps:int=60):
     resizeTime = 0
     for _ in range(duration*fps):
         t1 = time.time()
-        frames.append(pyboy.screen.image.copy().resize((640, 576), resample=Image.Resampling.BOX)) # pyright: ignore[reportOptionalMemberAccess]
+        frames.append(pyboy.screen.image.copy().resize(FRAME_RESOLUTION, resample=Image.Resampling.BOX)) # pyright: ignore[reportOptionalMemberAccess]
         t2 = time.time()
         pyboy.tick()
         t3 = time.time()
