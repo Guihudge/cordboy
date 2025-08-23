@@ -5,7 +5,7 @@ from discord.ext import commands
 from discord import Reaction, User
 from pyboy import PyBoy
 
-from config import BASE_URL, ROM_PATH, SAVESTATE_PATH, REACTIONS, DISCORD_TOKEN, GIF_OUTPUT
+from config import BASE_URL, ROM_PATH, SAVESTATE_PATH, REACTIONS, DISCORD_TOKEN, GIF_OUTPUT, FRAME_DURATION
 from pyboyHelper import startEmulator, gen_video, savestate
 
 # Discord stuff
@@ -57,13 +57,13 @@ async def on_reaction_add(reaction: Reaction, user: User) -> None:
     id = 1
     if pyboy:
         trigger_input(pyboy, emoji)
-        id = gen_video(pyboy, 2, GIF_OUTPUT)
+        id = gen_video(pyboy, FRAME_DURATION, GIF_OUTPUT)
         savestate(pyboy)
         print(f"video id: {id}")
 
     frame_url = f"{BASE_URL}/out_{id:06d}.webp"
     await reaction.message.edit(content=f"{frame_url}")
-    
+
     # Réinitialiser les réactions
     try:
         await reaction.message.remove_reaction(reaction.emoji, user)
